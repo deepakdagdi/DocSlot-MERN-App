@@ -131,11 +131,13 @@ function MyAppoinments() {
               </div>
               <div></div>
               <div className='flex flex-col gap-2 justify-end'>
-                {!item.cancelled && item.payment && <button className='sm:min-w-48 py-2 border rounded text-stone-500 bg-indigo-50'>Paid</button>}
-                {!item.cancelled && !item.payment && <button onClick={()=>appointmentRazorpay(item._id)} className='hover:bg-primary hover:text-white transition-all duration-300 text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded-md'>Pay Online</button>}
-                {!item.cancelled && <button onClick={()=> cancelAppointment(item._id)} className='hover:bg-red-600 hover:text-white transition-all duration-300 text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded-md'>Cancel Appointment</button>}
-                {item.cancelled && <button className='sm:min-w-48  py-2 border border-red-500 text-red-500 rounded'>Appointment cancel</button>}
-
+                {!item.cancelled && item.payment && !item.isCompleted && <button className='sm:min-w-48 py-2 border rounded text-stone-500 bg-indigo-50'>Paid</button>}
+                {!item.cancelled && !item.payment && !item.isCompleted && <button onClick={()=>appointmentRazorpay(item._id)} className='hover:bg-primary hover:text-white transition-all duration-300 text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded-md'>Pay Online</button>}
+                {!item.cancelled && !item.isCompleted && <button onClick={()=> cancelAppointment(item._id)} className='hover:bg-red-600 hover:text-white transition-all duration-300 text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded-md'>Cancel Appointment</button>}
+                {item.cancelled && !item.isCompleted &&<button className='sm:min-w-48  py-2 border border-red-500 text-red-500 rounded'>Appointment cancel</button>}
+                {
+                  item.isCompleted && <button className='sm:min-w-48  py-2  border border-green-500 rounded text-green-500'>Completed</button>
+                }
 
 
                 </div>
