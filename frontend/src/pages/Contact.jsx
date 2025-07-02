@@ -12,11 +12,13 @@ function Contact() {
 
           <div className='flex flex-col justify-scenter items-start gap-6'>
             <p className='font-semibold text-lg text-gray-600' >Our OFFICE</p>
-            <p className='text-gray-500'>4532 Willms Station <br/>
-              Suite 30 ,Washington ,USA
+            <p className='text-gray-500'>Plot No. 21, Sector 7,<br/>
+             Opp. Metro Pillar 145, Ring Road,<br/>
+             New Delhi, – 110070,<br/>
+             India
             </p>
             <p className='text-gray-500'>Tel:(415) 343-4343<br/> Email: deepakdagdi@gmail.com</p>
-            <p className='font-semibold text-lg text-gray-600'>Careers at PRESCRIPTO</p>
+            <p className='font-semibold text-lg text-gray-600'>Careers at DocSlot</p>
             <p className='text-gray-500'>Learn more about our team and job openings</p>
             <button className='border border-black  px-8 py-4 text-sm hover:bg-black hover:text-white transition-all duration-500 rounded-xl'>Explor Jobs</button>
           </div>
@@ -27,3 +29,5 @@ function Contact() {
 }
 
 export default Contact
+
+
