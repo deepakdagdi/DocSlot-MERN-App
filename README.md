@@ -22,7 +22,7 @@ This project includes:
 
 
  🌐 Live Deployment
-    Component	Platform	URL
+
     [User Panel]   https://doc-slot-app.vercel.app
     [Admin Panel]	 https://doc-slot-mern-app-admin.vercel.app
     [Backend API]  https://docslot-mern-app-backend.onrender.com
