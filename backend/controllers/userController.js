@@ -8,11 +8,9 @@ import appointmentModel from '../models/appointmentModel.js';
 import razorpay from "razorpay";
 
 //Api to register user
-
 const registerUser=async (req,res)=>{
     try {
         const {name,email,password} =req.body;
-        
         if(!name  || !password || !email){
             return res.json({success:false,message:"Missing Details"});
         }
@@ -50,7 +48,6 @@ const registerUser=async (req,res)=>{
 // Api for user login
 const  loginUser = async(req,res)=>{
     try {
-        
         const {email,password} = req.body;
         const user= await userModel.findOne({email})
         if(!user){
@@ -73,20 +70,14 @@ const  loginUser = async(req,res)=>{
 }
 
 // Api to get User profile data
-
 const getProfile = async(req,res) =>{
     try {
-        
         const {userId} = req;
-        
         const userData= await userModel.findById(userId).select('-password')
-
         res.json({success:true,userData})
-
     } catch (error) {
           console.log(error)
         res.json({success:false , message:error.message})
-        
     }
 }
 
@@ -99,61 +90,49 @@ const updateProfile = async(req,res)=>{
         const imageFile = req.file;
         
         if(!name || !phone || !address || !dob || !gender){
-            return res.json({success:false,message:"Data Missing"})
-
+            return res.json({success:false,message:"Data Missing"})        
         }
 
         await userModel.findByIdAndUpdate(userId,{name,phone,address:JSON.parse(address),dob,gender})
-
         if(imageFile){
             //upload image to cloudinary
-
             const imageUpload = await cloudinary.uploader.upload(imageFile.path,{resource_type:'image'})
             const imageURL = imageUpload.secure_url
-
             await userModel.findByIdAndUpdate(userId,{image:imageURL})
-
-        }
+       }
         res.json({success:true,message:"profile Updated"})
-        
-    } catch (error) {
+        } catch (error) {
         console.log(error)
         res.json({success:false , message:error.message})
-        
-    }
+        }
 }
-// //api to book appointment
+
+// api to book appointment
 const bookAppointment = async(req,res)=>{
     try {
         const {userId}=req;
         const {docId,slotDate,slotTime} = req.body;
-
         const docData = await doctorModel.findById(docId).select('-password')
-        console.log("docData="+docData)
-        if(!docData.available){
-            return res.json({success:false , message:"Doctor not avaliable"})
+           if(!docData.available){
+            return res.json({success:false ,
+                 message:"Doctor not available"})
         }
         let slots_booked = docData.slots_booked
 
-        //checking for slots availablity
-        
-        if(slots_booked[slotDate]){
+           //checking for slots availablity
+           if(slots_booked[slotDate]){
             if(slots_booked[slotDate].includes(slotTime)){
-                return res.json({success:false , message:"Slots not avaliable"})
+                return res.json({success:false , message:"Slots not available"})
             }else{
                 slots_booked[slotDate].push(slotTime)
             }
-
-        }else{
+           }else{
             slots_booked[slotDate]=[]
             slots_booked[slotDate].push(slotTime)
-
         }
 
         const userData = await userModel.findById(userId).select("-password")
-
         delete docData.slots_booked
-
         const appointmentData = {
             userId,
             docId,
@@ -170,16 +149,11 @@ const bookAppointment = async(req,res)=>{
 
         //save new slots data in docData
         await doctorModel.findByIdAndUpdate(docId,{slots_booked})
-
         res.json({success:true,message:"Appointment Booked"})
-
-
-        
-    } catch (error) {
+       } catch (error) {
         console.log(error)
         res.json({success:false , message:error.message})
-        
-    }
+      }
 }
 
 //Api To User Get Appointement for frontend myappointment page
@@ -187,7 +161,6 @@ const listAppointment = async(req,res)=>{
     try {
         const {userId}= req
         const appointments = await appointmentModel.find({userId})
-        
         res.json({success:true,appointments})
 
     } catch (error) {
@@ -196,15 +169,11 @@ const listAppointment = async(req,res)=>{
     }
 }
 
-
 //Api  to cancel appointment
 const cancelAppointment = async(req,res)=>{
     try {
-        
         const {userId}= req
-        const {appointmentId}=req.body
-         console.log("userId="+userId)
-          
+        const {appointmentId}=req.body          
         const appointmentData = await appointmentModel.findById(appointmentId)
 
         //verifiy appointment user
@@ -214,26 +183,18 @@ const cancelAppointment = async(req,res)=>{
         await appointmentModel.findByIdAndUpdate(appointmentId ,{cancelled:true})
 
         //releasing doctor slot
-
         const {docId,slotDate,slotTime}= appointmentData
-
         const doctorData = await doctorModel.findById(docId)
-
-        let slots_booked = doctorData.slots_booked
+         let slots_booked = doctorData.slots_booked
 
         slots_booked[slotDate] = slots_booked[slotDate].filter(e=> e!== slotTime)
 
         await doctorModel.findByIdAndUpdate(docId,{slots_booked})
-
         res.json({success:true, message:"Appointment Cancelled"})
-
-        
-    } catch (error) {
+       } catch (error) {
             console.log(error)
         res.json({success:false , message:error.message})
     }
-
-
 }
 
 
@@ -276,18 +237,15 @@ const paymentRazorpay = async(req,res)=>{
     }
 }
 
-
 //Api to verifiy payment of razorpay
 const verifyRazorpay = async(req,res)=>{
     try {
          const {razorpay_order_id} =req.body;
          const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id);
-     //    console.log(orderInfo);
-
-      if(orderInfo.status === 'paid')
-      {
-        await appointmentModel.findByIdAndUpdate(orderInfo.receipt,{payment:true})
-        res.json({
+        if(orderInfo.status === 'paid')
+        {
+         await appointmentModel.findByIdAndUpdate(orderInfo.receipt,{payment:true})
+         res.json({
             success:true,
             message:"Payment Successful"
         })
@@ -297,13 +255,21 @@ const verifyRazorpay = async(req,res)=>{
             message:"Payment Failed"
         })
       }
-        
     } catch (error) {
         console.log(error);
         res.json({success:false , message:error.message})
-        
     }
 }
 
 
-export {registerUser,loginUser,getProfile,updateProfile,bookAppointment,listAppointment,cancelAppointment,paymentRazorpay,verifyRazorpay}
+export {
+    registerUser,
+    loginUser,
+    getProfile,
+    updateProfile,
+    bookAppointment,
+    listAppointment,
+    cancelAppointment,
+    paymentRazorpay,
+    verifyRazorpay
+}

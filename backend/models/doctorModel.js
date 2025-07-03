@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 const doctorSchema = new mongoose.Schema({
     name: { type: String, require: true },
     email: { type: String, require: true, unique: true },
@@ -14,8 +13,6 @@ const doctorSchema = new mongoose.Schema({
     address: { type: Object, require: true },
     date: { type: Number, require: true },
     slots_booked: { type: Object, default: {} }
-
 }, { minimize: false })
-
 const doctorModel = mongoose.models.doctor || mongoose.model('doctor', doctorSchema)
 export default doctorModel;

@@ -11,7 +11,6 @@ adminRouter.post('/login',loginAdmin)
 adminRouter.post('/all-doctors',authAdmin,allDoctors)
 adminRouter.post('/change-availablity',authAdmin,changeAvailablity)
 adminRouter.get('/appointments',authAdmin,appointmentAdmin)
-
 adminRouter.post('/cancel-appointment',authAdmin,AppointmentCancel)
 adminRouter.get('/dashboard',authAdmin,adminDashboard)
 

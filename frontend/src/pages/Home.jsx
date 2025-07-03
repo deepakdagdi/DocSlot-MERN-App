@@ -7,10 +7,10 @@ import Banner from '../componets/Banner'
 function Home() {
   return (
     <div>
-      <Header/>
-      <SpecialityMenu/>
-      <TopDoctors/>
-      <Banner/>
+      <Header />
+      <SpecialityMenu />
+      <TopDoctors />
+      <Banner />
     </div>
   )
 }

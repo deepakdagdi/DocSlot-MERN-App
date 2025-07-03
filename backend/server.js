@@ -13,27 +13,15 @@ const port = process.env.PORT || 4000;
 connectDB();
 connectCloudinary();
 
-
 //Middleware
-
 app.use(express.json())
-
 app.use(cors())
 
-
-
-
-
-
 //api endpoint
-
-  app.use('/api/admin',adminRouter)
+ app.use('/api/admin',adminRouter)
  app.use('/api/doctor',doctorRouter)
  app.use('/api/user',userRouter)
-
-app.get('/',(req,res)=>{
+ app.get('/',(req,res)=>{
     res.send('API IS WORKING');
-
 })
-
 app.listen(port,()=>console.log("http://localhost:",port))

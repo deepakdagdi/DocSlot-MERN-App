@@ -9,17 +9,10 @@ const authDoctor= async(req,res,next)=>{
         }
         const token_decode= jwt.verify(dtoken,process.env.JWT_SECRET)
         req.docId = token_decode.id
-        
-        
-      
-        
-        next()
-        
-    } catch (error) {
+         next()
+        } catch (error) {
         console.log(error);
         res.json({success:false , message:error.message})
-        
-    }
-
+        }
 }
 export default authDoctor;
