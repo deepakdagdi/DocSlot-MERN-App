@@ -43,6 +43,17 @@ const Navbar = () => {
           <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
         </NavLink>
 
+        <a
+           href='http://localhost:5174'
+           target='_blank'
+           rel='noopener noreferrer'
+           
+         >
+  <li className='py-1 px-4 border border-primary rounded-full text-primary hover:bg-primary hover:text-white transition-all'>
+    ADMIN
+  </li>
+</a>
+
       </ul>
       <div className='flex items-center gap-4'>
         {

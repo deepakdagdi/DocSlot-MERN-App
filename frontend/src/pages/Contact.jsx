@@ -12,11 +12,13 @@ function Contact() {
 
         <div className='flex flex-col justify-scenter items-start gap-6'>
           <p className='font-semibold text-lg text-gray-600' >Our OFFICE</p>
-          <p className='text-gray-500'>Plot No. 21, Sector 7,<br />
-            Opp. Metro Pillar 145, Ring Road,<br />
-            New Delhi, – 110070,<br />
-            India
+          <p className='text-gray-500'>Sector 7 Estate,<br />
+            near Tube Station Exit 3,<br />
+            Ring Road (A406), North London,<br />
+            London, NW10 1AB,<br/>
+            United Kingdom
           </p>
+
           <p className='text-gray-500'>Tel:(415) 343-4343<br /> Email: deepakdagdi@gmail.com</p>
           <p className='font-semibold text-lg text-gray-600'>Careers at DocSlot</p>
           <p className='text-gray-500'>Learn more about our team and job openings</p>
