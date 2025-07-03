@@ -44,7 +44,7 @@ const Navbar = () => {
         </NavLink>
 
         <a
-           href='http://localhost:5174'
+           href='https://doc-slot-mern-app-admin.vercel.app'
            target='_blank'
            rel='noopener noreferrer'
            
